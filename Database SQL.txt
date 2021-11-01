@@ -1,0 +1,85 @@
+-- create the database
+DROP DATABASE IF EXISTS marvel;
+CREATE DATABASE marvel;
+
+-- select the database
+USE marvel;
+
+-- create tables 
+CREATE TABLE power
+(
+flight		CHAR(25)	NOT NULL,
+mutant		CHAR(25)	NOT NULL,
+organic		CHAR(25)	NOT NULL,
+combat		CHAR(25)	NOT NULL,
+strength	CHAR(25)	NOT NULL,
+speed		CHAR(25)	NOT NULL,
+magic		CHAR(25)	NOT NULL,
+powertype	CHAR(25)	NOT NULL,
+CONSTRANT power_pk
+	PRIMARY KEY (powertype)
+);
+
+CREATE TABLE abilities
+)
+ability_ID	CHAR(25)	NOT NULL,
+power_origin	VARCHAR(50) 	NOT NULL,
+CONSTRANT abilities_pk
+	PRIMARY KEY (ability_ID)
+);
+
+CREATE TABLE origin
+(
+origin_ID	VARCHAR(50)	NOT NULL,
+home_location	VARCHAR(50)	NOT NULL,
+power_origin	VARCHAR(50)	NOT NULL,
+CONSTRANT origin_pk
+	PRIMARY KEY (origin_ID)
+);
+
+CREATE TABLE superhero
+(
+superheroID	INT	NOT NULL,
+powertype	CHAR(6)	NOT NULL,
+superheronem_ID	INT	NOT NULL,
+origin_ID	CHAR(25)  NOT NULL,
+supename	CHAR(25)   NOT NULL,
+supeage		INT  NOT NULL,
+home_location	INT    NOT NULL,
+hq_ID		VARCHAR(220)  NOT NULL,
+Abilitiy_ID	CHAR(25)  NOT NULL,
+CONSTRAINT superhero_pk
+	PRIMARY KEY (superheroID)
+CONSTRAINT superhero_fk_power
+	FOREIGN KEY (powertype) REFERENCES power (powertype),
+CONSTRAINT superhero_fk_nemesis
+	FOREIGN KEY (superheronem_ID) REFERENCES nemesis (superheronem_ID)
+
+);
+
+CREATE TABLE nemesis
+(
+nemesis_ID	INT	NOT NULL,
+superheronem_ID	CHAR(25)	NOT NULL,
+supervilliannem_ID	CHAR(25)  NOT NULL,
+origin_ID	VARCHAR(25)	NOT NULL,
+nem_age		INT	NOT NULL,
+powertype	CHAR(25)	NOT NULL,
+CONSTRAINT nemesis_pk
+	PRIMARY KEY (nemesis_ID)
+CONSTRAINT nemesis_fk_power
+	FOREIGN KEY (powertype) REFERENCES power (powertype),
+CONSTRAINT nemesis_fk_origin
+	FOREIGN KEY (origin_ID) REFERENCES origin (origin_ID),
+);
+
+CREATE TABLE location
+(
+hq_ID	VARCHAR(25)	NOT NULL,
+home_location	VARCHAR		NOT NULL,
+CONSTRAINT location_pk
+	PRIMARY KEY (hq_ID)
+CONSTRAINT location_fk_origin
+	FOREIGN KEY (home_location) REFERENCES origin (home_location),
+);
+
